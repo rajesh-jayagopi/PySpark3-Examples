@@ -9,3 +9,4 @@
 *.crc
 *.parquet
 */*/_SUCCESS
+.idea/

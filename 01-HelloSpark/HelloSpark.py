@@ -10,8 +10,6 @@ if __name__ == "__main__":
         .builder \
         .appName("HelloSpark") \
         .master("local[2]") \
-        .config("spark.driver.extraJavaOptions", "-Dlog4j.configuration=file:log4j.properties "
-                                                 "-Dspark.yarn.app.container.log.dir=app-logs ") \
         .getOrCreate()
 
     logger = Log4j(spark)
