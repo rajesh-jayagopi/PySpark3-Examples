@@ -16,10 +16,15 @@ if __name__ == "__main__":
 
     # sc = SparkContext(conf=conf)
     spark = SparkSession.builder.config(conf=conf).getOrCreate()
+
     sc = spark.sparkContext
+
     logger = Log4j(spark)
+    print(spark.sparkContext.getConf().get("spark.yarn.app.container.log.dir"))
 
     if len(sys.argv) != 2:
+        logger.info("Good")
+        logger.logger
         logger.error("Usage: HelloSpark <filename>")
         sys.exit(-1)
 

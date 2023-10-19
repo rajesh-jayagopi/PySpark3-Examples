@@ -2,13 +2,19 @@ from pyspark.sql import SparkSession
 from pyspark.sql.types import StructType, StructField, DateType, StringType, IntegerType
 
 from lib.logger import Log4j
+import os
 
 if __name__ == "__main__":
+
+    # os.environ['my.log'] = 'app-logs'
     spark = SparkSession \
         .builder \
         .master("local[3]") \
+        .config('spark.yarn.app.container.log.dir', 'D:/01_Repos/PySpark3-Examples/04-SparkSchemaDemo/app-logs/') \
         .appName("SparkSchemaDemo") \
         .getOrCreate()
+
+    print(spark.conf.get('spark.yarn.app.container.log.dir'))
 
     logger = Log4j(spark)
 
@@ -60,3 +66,5 @@ if __name__ == "__main__":
 
     flightTimeParquetDF.show(5)
     logger.info("Parquet Schema:" + flightTimeParquetDF.schema.simpleString())
+
+    spark.stop()

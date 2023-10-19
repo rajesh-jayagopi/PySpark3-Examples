@@ -7,10 +7,14 @@ if __name__ == "__main__":
         .builder \
         .master("local[3]") \
         .appName("SparkSQLTableDemo") \
-        .enableHiveSupport() \
+        .config("spark.sql.warehouse.dir", "output") \
         .getOrCreate()
 
     logger = Log4j(spark)
+    hiveWarehouse = spark.sparkContext.getConf().get("spark.sql.warehouse.dir")
+    print(f"{hiveWarehouse=}")
+    print()
+    exit(1)
 
     flightTimeParquetDF = spark.read \
         .format("parquet") \
@@ -23,4 +27,4 @@ if __name__ == "__main__":
         .mode("overwrite") \
         .saveAsTable("flight_data_tbl")
 
-    logger.info(spark.catalog.listTables("AIRLINE_DB"))
+    print(str(spark.catalog.listTables("AIRLINE_DB")))

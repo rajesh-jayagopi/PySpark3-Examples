@@ -7,6 +7,7 @@ class Log4j:
         app_name = conf.get("spark.app.name")
 
         self.logger = log4j.LogManager.getLogger(root_class + "." + app_name)
+        print(self.logger.info("TETS"))
 
     def warn(self, message):
         self.logger.warn(message)

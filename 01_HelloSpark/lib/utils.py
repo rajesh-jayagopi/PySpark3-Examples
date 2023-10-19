@@ -1,8 +1,5 @@
 import configparser
 
-from pyspark import SparkConf
-
-
 def load_survey_df(spark, data_file):
     return spark.read \
         .option("header", "true") \
@@ -18,6 +15,7 @@ def count_by_country(survey_df):
 
 
 def get_spark_app_config():
+    from pyspark import SparkConf
     spark_conf = SparkConf()
     config = configparser.ConfigParser()
     config.read("spark.conf")
